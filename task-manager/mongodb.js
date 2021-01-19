@@ -1,5 +1,7 @@
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
+// const mongodb = require('mongodb')
+// const MongoClient = mongodb.MongoClient
+
+const {MongoClient, ObjectID} =require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
@@ -9,31 +11,37 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
         return console.log('Unable to connect to database!')
     }
     const db = client.db(databaseName)
-    db.collection('users').insertOne({
-        name : 'Chingly',
-        age: 20
-    },(error,result) => {
-        if(error){
-            return console.log('Unable to insert user')
-        }
-        console.log(result.ops);
-    })
+    // db.collection('users').insertOne({
+    //     name : 'Chingly',
+    //     age: 20
+    // },(error,result) => {
+    //     if(error){
+    //         return console.log('Unable to insert user')
+    //     }
+    //     console.log(result.ops);
+    // })
 
-    db.collection('tasks').insertMany([
-        {
-            Description: ' HW CSC210',
-            complete : true
-        }, {
-            Description: 'HW CSC220',
-            complete : false
-        },{
-            Description: 'HW CSC102',
-            complete : true
-        }
-    ],(error,result) => {
+    // db.collection('tasks').insertMany([
+    //     {
+    //         Description: ' HW CSC210',
+    //         complete : true
+    //     }, {
+    //         Description: 'HW CSC220',
+    //         complete : false
+    //     },{
+    //         Description: 'HW CSC102',
+    //         complete : true
+    //     }
+    // ],(error,result) => {
+    //     if(error){
+    //         return console.log('Unable to insert tasks');
+    //     }
+    //     console.log(result.ops);
+    // })
+    db.collection('tasks').findOne({complete : false}, (error,result) => {
         if(error){
-            return console.log('Unable to insert tasks');
+            return console.log('Unable to find');
         }
-        console.log(result.ops);
+        console.log(result);
     })
 })
